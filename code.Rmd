@@ -1,0 +1,24 @@
+---
+title: "DS421 Replication"
+author: "Yiyi, Arfa and Elif"
+date: "9/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(foreign)
+library(dplyr)
+library(readstata13)
+```
+```{r}
+baseline <- read.dta13("data/baselineData.dta")
+country <- read.dta13("data/countryData.dta")
+nex <- read.dta13("data/NEXdata.dta")
+climate <- read.dta13("data/uniformClimateChange.dta")
+additional <- read.dta13("data/additionalData.dta")
+```
+
+
