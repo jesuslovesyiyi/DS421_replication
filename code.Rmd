@@ -9,9 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r}
-library(foreign)
+# library(foreign)
 library(dplyr)
 library(readstata13)
+library(ggplot2)
 ```
 ```{r}
 baseline <- read.dta13("data/baselineData.dta")
@@ -20,5 +21,31 @@ nex <- read.dta13("data/NEXdata.dta")
 climate <- read.dta13("data/uniformClimateChange.dta")
 additional <- read.dta13("data/additionalData.dta")
 ```
+```{r}
+baseline2 <- baseline %>%
+  mutate(log_app = log(applications))
+
+aggregate(baseline2[,12], list(baseline2$originCountryName), mean)
+```
+
+```{r}
+summary <- baseline2 %>%
+  group_by(originCountryName) %>%
+  summarise(mean_log_app = mean(log_app, na.rm = TRUE),
+            max_log_app = max(log_app, na.rm = TRUE),
+            min_log_app = min(log_app, na.rm = TRUE),
+            mean_temp = mean(tAvgDEL, na.rm = TRUE),
+            max_temp = max(tAvgDEL, na.rm = TRUE),
+            min_temp = min(tAvgDEL, na.rm = TRUE)
+            ) %>%
+  filter(mean_log_app > 0 & min_log_app>0)
+
+
+# p1 <- ggplot(merge_mean_app_temp, aes(x= mean_temp, y = mean_log_app)) + geom_point(); p1
+                      
+
+```
+
+
 
 
