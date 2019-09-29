@@ -50,7 +50,7 @@ summary <- baseline %>%
   filter(mean_log_app > 0)
 ```
 
-Scatter plot with range of log assylum applications for each country
+Scatter plot with range of log asylum applications for each country
 ```{r}
 ggplot(summary, aes(x = mean_temp, y = mean_log_app)) + 
   geom_point(shape = 4) + 
