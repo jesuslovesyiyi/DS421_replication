@@ -1,10 +1,20 @@
 ---
-title: "DS421 Replication"
+title: "DS421 Replication - Missirian & Schlenker (2017)"
 author: "Yiyi, Arfa and Elif"
 date: "9/25/2019"
 output: html_document
 
 ---
+
+### Summary
+We were interested in the green part of Figure 1, which captures the relationship between average temperatures and log asylum applications for each country.  
+
+![Figure 1](./Figure1.png)
+
+In this figure, the 'x' marks represent each country's average temperature and average log asylum applications. The horizontal lines represent the range of each country's annual average temperature over the period of study. 
+
+We reproduce this portion of the plot and create an additional plot indicating the range of each country's log asylum applications over the period of study. 
+
 ### Load libraries
 
 ```{r warning=FALSE}
@@ -40,23 +50,23 @@ summary <- baseline %>%
   filter(mean_log_app > 0)
 ```
 
-scatter plot with range of log assylum applications for each country
+Scatter plot with range of log assylum applications for each country
 ```{r}
 ggplot(summary, aes(x = mean_temp, y = mean_log_app)) + 
   geom_point(shape = 4) + 
   geom_errorbar(mapping = aes(x = mean_temp, ymin = min_log_app, ymax = max_log_app)) +
-  geom_text(aes(label=originCountryName),hjust=0, vjust=0) +
+  geom_text(aes(label=originCountryName),hjust=0, vjust=0, size=3) +
   theme_bw() +
   scale_x_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 5)) + 
   scale_y_continuous(name = "Average log Applications", breaks = seq(0,15,5))
 ```
   
-scatter plot with range of temperatures for each country
+Scatter plot with range of temperatures for each country
 ```{r}
 ggplot(summary, aes(x = mean_log_app, y = mean_temp)) + 
   geom_point(shape = 4) + 
   geom_errorbar(mapping = aes(x = mean_log_app, ymin = min_temp, ymax = max_temp)) +
-  geom_text(aes(label=originCountryName),hjust=0, vjust=0) +
+  geom_text(aes(label=originCountryName),hjust=0, vjust=0, size=3) +
   coord_flip() +
   theme_bw() +
   scale_y_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 5)) + 
