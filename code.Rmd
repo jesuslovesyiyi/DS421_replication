@@ -9,7 +9,7 @@ output: html_document
 ### Summary
 We were interested in the green part of Figure 1, which captures the relationship between average temperatures and log asylum applications for each country.  
 
-![Figure 1](./Figure1.png)
+![](./Figure1.png)
 
 In this figure, the 'x' marks represent each country's average temperature and average log asylum applications. The horizontal lines represent the range of each country's annual average temperature over the period of study. 
 
