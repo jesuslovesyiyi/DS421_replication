@@ -85,7 +85,6 @@ baseline2 <- baseline %>%
   mutate(log_applications = log(applications)) %>%
   select(log_applications, log_assylum_quad, log_assylum_spline)
 
-
 baseline2
 ```
 
