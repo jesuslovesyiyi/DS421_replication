@@ -73,5 +73,20 @@ ggplot(summary, aes(x = mean_log_app, y = mean_temp)) +
   scale_x_continuous(name = "Average log Applications", breaks = seq(0,15,5))
 ```
 
+Trying to replicate the quadratic and spline models
+![](./TableS1.PNG)
+
+###Quadratic
+
+```{r}
+baseline2 <- baseline %>%
+  mutate(log_assylum_quad = (tAvgDEL*-0.539)+(tAvgDEL2*0.013)+(precDEL*0.244)+(precDEL2*0.104)) %>%
+  mutate(log_assylum_spline = (tSplineDEL1*-0.187)+(tSplineDEL2*1.034)+(tSplineDEL3*-2.877)+(tSplineDEL4*4.243)+(precDEL*0.220)+(precDEL2*0.103)) %>%
+  mutate(log_applications = log(applications)) %>%
+  select(log_applications, log_assylum_quad, log_assylum_spline)
+
+
+baseline2
+```
 
 
