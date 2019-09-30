@@ -50,28 +50,45 @@ summary <- baseline %>%
   filter(mean_log_app > 0)
 ```
 
-Scatter plot with range of log asylum applications for each country
+```{r, out.width='50%', fig.align='center'}
+knitr::include_graphics('Figure1.png')
+```
 ```{r}
-ggplot(summary, aes(x = mean_temp, y = mean_log_app)) + 
-  geom_point(shape = 4) + 
-  geom_errorbar(mapping = aes(x = mean_temp, ymin = min_log_app, ymax = max_log_app)) +
-  geom_text(aes(label=originCountryName),hjust=0, vjust=0, size=3) +
-  theme_bw() +
-  scale_x_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 5)) + 
-  scale_y_continuous(name = "Average log Applications", breaks = seq(0,15,5))
+summary <- summary %>%
+  mutate(app_range = max_log_app - min_log_app)
 ```
   
 Scatter plot with range of temperatures for each country
 ```{r}
 ggplot(summary, aes(x = mean_log_app, y = mean_temp)) + 
-  geom_point(shape = 4) + 
-  geom_errorbar(mapping = aes(x = mean_log_app, ymin = min_temp, ymax = max_temp)) +
-  geom_text(aes(label=originCountryName),hjust=0, vjust=0, size=3) +
+  geom_point(shape = 4, color = "green") + 
+  geom_errorbar(mapping = aes(x = mean_log_app, ymin = min_temp, ymax = max_temp), size=0.2, color = "green") +
+  geom_text(aes(label=originCountryName),hjust=0.1, vjust=-1, size=1.7) +
   coord_flip() +
   theme_bw() +
-  scale_y_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 5)) + 
-  scale_x_continuous(name = "Average log Applications", breaks = seq(0,15,5))
+  scale_y_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 2)) + 
+  scale_x_continuous(name = "Average log Applications", breaks = seq(0,15,1.75))
+```
+Scatter plot with range of log asylum applications for each country
+```{r}
+ggplot(summary, aes(x = mean_temp, y = mean_log_app)) + 
+  geom_point(shape = 4, color = "blue") + 
+  geom_errorbar(mapping = aes(x = mean_temp, ymin = min_log_app, ymax = max_log_app), size = 0.2, color = "blue") +
+  geom_text(aes(label=originCountryName),hjust=1.4, vjust=0, size=1.7) +
+  theme_bw() +
+  scale_x_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 2)) + 
+  scale_y_continuous(name = "Average log Applications", breaks = seq(0,15,1.75))
 ```
 
+```{r}
+ggplot(summary, aes(x = mean_temp, y = mean_log_app, color = app_range)) + 
+  geom_point(shape = 4, size = 2) + 
+  theme_bw() +
+  scale_x_continuous(name = "Average Temperature (Celsius)", breaks = seq(0,40, 2)) + 
+  scale_y_continuous(name = "Average log Applications", breaks = seq(0,15,1.75)) +
+  scale_fill_gradientn(colours = terrain.colors(20)) +
+  geom_text(aes(label=originCountryName),hjust=0.1, vjust=-1, size=1.7) +
+  labs(title = "Average temperature & application scatter plot", subtitle = "(color-coded by application range)", color = "Application \nRange")
+```
 
 
